@@ -1,0 +1,14 @@
+.class {
+    display: flex;
+    margin: .5rem 1rem;
+    padding: .5rem 1rem 0 1.5rem;
+    color: red;
+}
+
+.columnGuy {
+    display: flex;
+    border-radius: 50%;
+    width: 20px;
+    height: 2rem;
+    flex-direction: column;
+}

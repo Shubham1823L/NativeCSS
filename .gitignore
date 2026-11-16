@@ -34,3 +34,5 @@ dist-ssr
 .unlighthouse
 
 firebase-admin-sdk-key.json
+
+output
