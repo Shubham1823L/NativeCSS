@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "clear && clear && nodemon",
     "build": "tsc && tsc-alias && clear && clear && echo Build complete",
-    "start": "clear && clear && node --env-file=.env.production ./dist/index.js"
+    "start": "bash start.sh"
   },
   "keywords": [],
   "author": "",
