@@ -12,6 +12,7 @@
     width: 20px;
     height: 2rem;
     flex-direction: column;
+    padding: .5rem 1rem;
 }
 
 h1 {

@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 
 
 const run = async (input: string) => {
-    const result = await postcss(plugins).process(input, { from: './styles.css' })
+    const result = await postcss(plugins).process(input, { from: undefined })
     const cssFile = result.css
     await fs.promises.mkdir('output', { recursive: true })
     await fs.promises.writeFile('output/styles.css', cssFile)
