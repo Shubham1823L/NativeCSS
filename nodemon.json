@@ -1,6 +1,6 @@
 {
     "watch":["src",".env"],
-    "ext":"ts, env",
+    "ext":"ts, env, css",
     "exclude":["node_modules"],
     "exec":"tsx src/index.ts"
 }

@@ -1,6 +1,6 @@
 import { Declaration, type PluginCreator } from "postcss";
+import { PluginNameOptions } from "./types";
 
-type PluginNameOptions = Record<string, unknown>
 
 const plugin: PluginCreator<PluginNameOptions> = () => {
     return {
@@ -9,7 +9,7 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
             console.log("Starting felxPlugin")
         },
         Rule(rule) {
-            if (!rule.selector.startsWith('.')) return console.log("Not a class")
+            if (!rule.selector.startsWith('.')) return console.warn("Not a class:", rule.selector)
 
             // Get display and flexDirection values
             const flexbox = { display: '', 'flex-direction': '' }

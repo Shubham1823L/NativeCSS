@@ -1,0 +1,1 @@
+export type PluginNameOptions = Record<string, unknown>

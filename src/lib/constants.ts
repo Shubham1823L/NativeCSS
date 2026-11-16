@@ -1,0 +1,18 @@
+
+export const cssLengthUnits = [
+    "em",
+    "ex",
+    "ch",
+    "rem",
+    "vh",
+    "vw",
+    "vmin",
+    "vmax",
+    "px",
+    "mm",
+    "cm",
+    "in",
+    "pt",
+    "pc",
+    "mozmm"
+] as const
