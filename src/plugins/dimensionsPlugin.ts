@@ -1,6 +1,7 @@
 import { PluginCreator } from "postcss";
 import { PluginNameOptions } from "./types";
 import { cssLengthUnits } from "@/lib/constants";
+import { debugLogger } from "@/utils/debugLogger";
 
 
 
@@ -51,8 +52,8 @@ const parseNumber = (value: string) => {
 
 
     const isCSSUnit = UNITS.includes(unit)
-    if (!isCSSUnit) return console.warn("Non-css unit detected", unit)
-    if (unit === '%') return console.log("Won't touch:", value)
+    if (!isCSSUnit) return debugLogger("Non-css unit detected " + unit)
+    if (unit === '%') return
 
     const number = parseFloat(value.split(unit)[0])
     if (unit === 'rem' || unit === 'em') return number * 16

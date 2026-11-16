@@ -13,9 +13,28 @@
     height: 2rem;
     flex-direction: column;
     padding: .5rem 1rem;
+
+    >*{
+        border: 'pink';
+    }
+
+    &:not(:hover) {
+        color: 'red'
+    }
+
+    .clas {
+        color: 'aqua'
+    }
 }
 
 h1 {
     border-color: aqua;
     margin: 10rem 0 1vh 3px;
+}
+
+
+@media (width>53px) {
+    .wa {
+        color: 'red'
+    }
 }
