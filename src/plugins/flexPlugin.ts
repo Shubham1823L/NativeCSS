@@ -20,6 +20,10 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
             // Get display and flexDirection values
             const flexbox = { display: '', 'flex-direction': '' }
             rule.walkDecls(decl => {
+                if (decl.prop == 'flex-shrink' && decl.value == '0') {
+                    decl.remove()
+                    return
+                }
                 const property = decl.prop as keyof typeof flexbox
                 if (flexbox[property] !== undefined) flexbox[property] = decl.value
             })

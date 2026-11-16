@@ -17,11 +17,34 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
         Rule(rule) {
             // Assuming shorthands are declared before specifics
             rule.walkDecls(decl => {
+                // Handle border shorthand (ignore semantics and wrong naming)
+                if (decl.prop == 'border') {
+                    const [width, style, ...colors] = decl.value.split(' ')
+
+                    if (!style) {
+                        decl.after(new Declaration({ prop: 'border-width', value: width }))
+                        decl.remove()
+                        return
+                    }
+                    if (!colors.length) {
+                        decl.after(new Declaration({ prop: 'border-style', value: style }))
+                        decl.after(new Declaration({ prop: 'border-width', value: width }))
+                        decl.remove()
+                        return
+                    }
+
+                    const color = colors.join(' ')
+                    decl.after(new Declaration({ prop: 'border-color', value: color }))
+                    decl.after(new Declaration({ prop: 'border-style', value: style }))
+                    decl.after(new Declaration({ prop: 'border-width', value: width }))
+                    decl.remove()
+                    return
+                }
+
                 const property = decl.prop as typeof SHORTHAND_PROPERTIES[number]
                 if (!SHORTHAND_PROPERTIES.includes(property)) return
 
-                const values = decl.value.split(' ')
-                const [top, right, bottom, left] = values
+                const [top, right, bottom, left] = decl.value.split(' ')
 
                 if (right === undefined) return // margin: 2rem;
 
