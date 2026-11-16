@@ -7,7 +7,7 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
     return {
         postcssPlugin: 'flexPlugin',
         Once() {
-            console.log("Starting felxPlugin")
+            debugLogger("Starting felxPlugin")
         },
         Rule(rule) {
             if (!rule.selector.startsWith('.')) {
@@ -51,7 +51,7 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
             })
         },
         OnceExit() {
-            console.log("Exiting felxPlugin")
+            debugLogger("Exiting felxPlugin")
         },
     }
 }

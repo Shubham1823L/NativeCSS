@@ -14,25 +14,26 @@ const UNITS = [
 const plugin: PluginCreator<PluginNameOptions> = () => {
     return {
         postcssPlugin: 'dimensionsPlugin',
-        Once() {
-            console.log("Starting dimensionsPlugin")
-        },
-        Declaration(decl) {
-            // First we normalize all declarations having dimensional Values to numbers / percentages
-            const values = decl.value.split(' ')
-            const newValues: (string | number)[] = []
+        Once(root) {
+            debugLogger("Starting dimensionsPlugin")
+            root.walkDecls(decl => {
+                // First we normalize all declarations having dimensional Values to numbers / percentages
+                const values = decl.value.split(' ')
+                const newValues: (string | number)[] = []
 
-            // Traverse through values and check if value has number
-            values.forEach((value, i) => {
-                const result = parseNumber(value)
-                newValues.push(result ?? value)
+                // Traverse through values and check if value has number
+                values.forEach(value => {
+                    const result = parseNumber(value)
+                    newValues.push(result ?? value)
+                    newValues.push()
+                })
+
+                // Assign new value to declaration
+                decl.value = newValues.join(' ')
             })
-
-            // Assign new value to declaration
-            decl.value = newValues.join(' ')
         },
         OnceExit() {
-            console.log("Exiting dimensionsPlugin")
+            debugLogger("Exiting dimensionsPlugin")
         }
     }
 }
@@ -48,8 +49,12 @@ const parseNumber = (value: string) => {
 
     const unitRegexResult = value.match(/\D+$/)
     const unit = unitRegexResult && unitRegexResult[0] as typeof UNITS[number]
-    if (!unit) return parseFloat(value)
 
+    if (!unit) {
+        const number = parseFloat(value)
+        if (!isNaN(number)) return number
+        return
+    }
 
     const isCSSUnit = UNITS.includes(unit)
     if (!isCSSUnit) return debugLogger("Non-css unit detected " + unit)

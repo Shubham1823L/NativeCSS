@@ -1,5 +1,6 @@
 import { Declaration, PluginCreator } from "postcss";
 import { PluginNameOptions } from "./types";
+import { debugLogger } from "@/utils/debugLogger";
 
 const SHORTHAND_PROPERTIES = [
     'margin',
@@ -11,7 +12,7 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
     return {
         postcssPlugin: 'shortHandsPlugin',
         Once() {
-            console.log("Starting ShorthandsPlugin")
+            debugLogger("Starting ShorthandsPlugin")
         },
         Rule(rule) {
             // Assuming shorthands are declared before specifics
@@ -28,30 +29,30 @@ const plugin: PluginCreator<PluginNameOptions> = () => {
 
                 if (bottom === undefined) {
                     // margin: 2rem 1rem;
-                    decl.after(new Declaration({ prop: property+'-inline', value: right }))
-                    decl.after(new Declaration({ prop: property+'-block', value: top }))
+                    decl.after(new Declaration({ prop: property + '-inline', value: right }))
+                    decl.after(new Declaration({ prop: property + '-block', value: top }))
                     decl.remove()
                     return
                 }
                 if (left === undefined) {
                     // margin: 2rem 1rem .5rem;
-                    decl.after(new Declaration({ prop: property+'-inline', value: right }))
-                    decl.after(new Declaration({ prop: property+'-bottom', value: bottom }))
-                    decl.after(new Declaration({ prop: property+'-top', value: top }))
+                    decl.after(new Declaration({ prop: property + '-inline', value: right }))
+                    decl.after(new Declaration({ prop: property + '-bottom', value: bottom }))
+                    decl.after(new Declaration({ prop: property + '-top', value: top }))
                     decl.remove()
                     return
                 }
                 // margin: 2rem 1rem .5rem .75rem;
-                decl.after(new Declaration({ prop: property+'-left', value: left }))
-                decl.after(new Declaration({ prop: property+'-right', value: right }))
-                decl.after(new Declaration({ prop: property+'-bottom', value: bottom }))
-                decl.after(new Declaration({ prop: property+'-top', value: top }))
+                decl.after(new Declaration({ prop: property + '-left', value: left }))
+                decl.after(new Declaration({ prop: property + '-right', value: right }))
+                decl.after(new Declaration({ prop: property + '-bottom', value: bottom }))
+                decl.after(new Declaration({ prop: property + '-top', value: top }))
                 decl.remove()
                 return
             })
         },
         OnceExit() {
-            console.log("Exiting ShorthandsPlugin")
+            debugLogger("Exiting ShorthandsPlugin")
         }
     }
 

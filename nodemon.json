@@ -1,5 +1,5 @@
 {
-    "watch":["src",".env"],
+    "watch":["src",".env","input"],
     "ext":"ts, env, css",
     "exclude":["node_modules"],
     "exec":"tsx src/index.ts"
